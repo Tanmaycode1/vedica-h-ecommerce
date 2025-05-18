@@ -16,6 +16,13 @@ import {
   CurrencyRupeeIcon
 } from '@heroicons/react/24/outline';
 import { ordersApi, paymentsApi } from '@/lib/api';
+import { API_URL } from '@/utils/config';
+
+// Get base URL for images (without /api)
+const getBaseUrl = () => {
+  const url = API_URL || '';
+  return url.endsWith('/api') ? url.slice(0, -4) : url;
+};
 
 const orderStatusColors = {
   pending: 'bg-blue-100 text-blue-800',
@@ -259,7 +266,7 @@ export default function OrderDetailPage() {
                   <div className="flex-shrink-0 w-16 h-16">
                     {item.image ? (
                       <img
-                        src={`${item.image.startsWith('http') ? '' : 'http://localhost:3002/uploads/'}${item.image}`}
+                        src={`${getBaseUrl()}/uploads/${item.image}`}
                         alt={item.title || 'Product'}
                         className="w-16 h-16 rounded-md object-cover"
                         onError={(e) => {

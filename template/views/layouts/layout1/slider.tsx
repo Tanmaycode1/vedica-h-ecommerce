@@ -105,11 +105,14 @@ const SliderBanner: NextPage = () => {
     if (src.startsWith('http')) return src;
     
     // Handle backend URLs
-    const BACKEND_URL = 'http://localhost:3002';
+    let baseUrl = process.env.NEXT_PUBLIC_API_URL || process.env.API_URL || 'http://localhost:3002';
+    if (baseUrl.endsWith('/api')) {
+      baseUrl = baseUrl.slice(0, -4); // Remove the /api suffix for image URLs
+    }
     
     if (src.startsWith('/uploads/') || src.startsWith('uploads/')) {
       const path = src.startsWith('/') ? src.substring(1) : src;
-      return `${BACKEND_URL}/${path}`;
+      return `${baseUrl}/${path}`;
     }
     
     return src;

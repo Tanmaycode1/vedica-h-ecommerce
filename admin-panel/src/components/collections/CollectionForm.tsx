@@ -10,6 +10,13 @@ import { collectionsApi, productsApi } from '@/lib/api';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { SafeImage } from '@/utils/imageHelpers';
 import React from 'react';
+import { API_URL, ENDPOINTS } from '@/utils/config';
+
+// Get base URL for images (without /api)
+const getBaseUrl = () => {
+  const url = API_URL || '';
+  return url.endsWith('/api') ? url.slice(0, -4) : url;
+};
 
 type CollectionFormData = {
   name: string;
@@ -55,9 +62,7 @@ export default function CollectionForm({ collectionId, initialData }: Collection
   const fileInputRef = React.useRef<HTMLInputElement>(null);
   
   // Define API endpoints
-  const ENDPOINTS = {
-    UPLOADS: 'http://localhost:3002/api/uploads'
-  };
+  const UPLOADS_ENDPOINT = ENDPOINTS.UPLOADS;
   
   const { 
     register, 
@@ -98,8 +103,9 @@ export default function CollectionForm({ collectionId, initialData }: Collection
         if (!imageUrl.startsWith('/uploads')) {
           fullImageUrl = `/uploads${imageUrl}`;
         }
-        // Add the server URL
-        fullImageUrl = `http://localhost:3002${fullImageUrl}`;
+        // Add the server URL - use the base part of API_URL without the '/api' suffix
+        const baseUrl = getBaseUrl();
+        fullImageUrl = `${baseUrl}${fullImageUrl}`;
       }
       
       setImagePreview(fullImageUrl);
@@ -315,8 +321,8 @@ export default function CollectionForm({ collectionId, initialData }: Collection
       
       // Create or update the collection
       const endpoint = collectionId
-        ? `http://localhost:3002/api/collections/${collectionId}`
-        : 'http://localhost:3002/api/collections';
+        ? `${API_URL}/collections/${collectionId}`
+        : `${API_URL}/collections`;
       
       const method = collectionId ? 'PUT' : 'POST';
       
@@ -377,7 +383,7 @@ export default function CollectionForm({ collectionId, initialData }: Collection
           const formData = new FormData();
           formData.append('image', localImageFile);
           
-          const uploadResponse = await fetch(`${ENDPOINTS.UPLOADS}/collections/${newCollectionId}/images`, {
+          const uploadResponse = await fetch(`${UPLOADS_ENDPOINT}/collections/${newCollectionId}/images`, {
             method: 'POST',
             body: formData,
           });
@@ -427,7 +433,7 @@ export default function CollectionForm({ collectionId, initialData }: Collection
         formData.append('image', file);
         
         // Upload the image
-        const response = await fetch(`${ENDPOINTS.UPLOADS}/collections/${collectionId}/images`, {
+        const response = await fetch(`${UPLOADS_ENDPOINT}/collections/${collectionId}/images`, {
           method: 'POST',
           body: formData,
         });
@@ -445,7 +451,7 @@ export default function CollectionForm({ collectionId, initialData }: Collection
           URL.revokeObjectURL(previewUrl);
           
           // Use the full URL from the server including the backend URL
-          const fullImageUrl = `http://localhost:3002${data.collection.image_url}`;
+          const fullImageUrl = `${getBaseUrl()}${data.collection.image_url}`;
           setValue('image_url', fullImageUrl);
           setImagePreview(fullImageUrl);
           
@@ -492,7 +498,7 @@ export default function CollectionForm({ collectionId, initialData }: Collection
         setIsUploading(true);
         
         // Call the API to delete the image
-        const response = await fetch(`${ENDPOINTS.UPLOADS}/collections/images/${collectionId}`, {
+        const response = await fetch(`${UPLOADS_ENDPOINT}/collections/images/${collectionId}`, {
           method: 'DELETE',
         });
         

@@ -10,6 +10,13 @@ import { collectionsApi } from '@/lib/api';
 import Link from 'next/link';
 import { Input } from '@/components/ui/input';
 import React from 'react';
+import { API_URL } from '@/utils/config';
+
+// Get base URL for images (without /api)
+const getBaseUrl = () => {
+  const url = API_URL || '';
+  return url.endsWith('/api') ? url.slice(0, -4) : url;
+};
 
 type CollectionType = {
   id: number;
@@ -359,8 +366,8 @@ export default function CollectionsPage() {
                     src={
                       collection.image_url ? collection.image_url :
                       collection.image?.startsWith('/') 
-                        ? `http://localhost:3002${collection.image}` 
-                        : `http://localhost:3002/uploads/${collection.image}`
+                        ? `${getBaseUrl()}${collection.image}` 
+                        : `${getBaseUrl()}/uploads/${collection.image}`
                     }
                     alt={collection.name}
                     className="w-full h-full object-cover"

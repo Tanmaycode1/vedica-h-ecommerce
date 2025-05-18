@@ -16,7 +16,7 @@ export default function SettingsPage() {
   });
   
   const [apiSettings, setApiSettings] = useState({
-    apiUrl: 'http://localhost:3002/api',
+    apiUrl: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3002/api',
     timeout: '30000',
     maxRetries: '3',
   });

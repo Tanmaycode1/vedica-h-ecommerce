@@ -38,18 +38,21 @@ const ProductSlick: React.FC<ProductSlickProps> = ({ item, bundle, swatch }) => 
     }
     
     // Backend URL
-    const BACKEND_URL = 'http://localhost:3002';
+    let baseUrl = process.env.NEXT_PUBLIC_API_URL || process.env.API_URL || 'http://localhost:3002';
+    if (baseUrl.endsWith('/api')) {
+      baseUrl = baseUrl.slice(0, -4); // Remove the /api suffix for image URLs
+    }
     
     // Check if it's an upload path from the backend without leading slash
     if (img.src.startsWith('uploads/product-images/')) {
-      return `${BACKEND_URL}/${img.src}`;
+      return `${baseUrl}/${img.src}`;
     }
     
     // Check if it's a product images path with leading slash
     if (img.src.startsWith('/uploads/product-images/') || img.src.startsWith('/product-images/')) {
       // Remove leading slash if needed
       const path = img.src.startsWith('/') ? img.src.substring(1) : img.src;
-      return `${BACKEND_URL}/${path}`;
+      return `${baseUrl}/${path}`;
     }
     
     // Default case for other images

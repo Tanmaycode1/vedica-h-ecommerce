@@ -1,8 +1,13 @@
 import { API_URL } from './config';
 import React from 'react';
 
-// Remove the /api suffix from the API_URL to get the base URL
-const BASE_URL = API_URL.replace('/api', '');
+// Remove the /api suffix from the API_URL to get the base URL for images
+const getBaseUrl = () => {
+  const url = API_URL || '';
+  return url.endsWith('/api') ? url.slice(0, -4) : url;
+};
+
+const BASE_URL = getBaseUrl();
 
 // Default placeholder image to use when source is empty or invalid
 const DEFAULT_PLACEHOLDER = 'https://placehold.co/600x400?text=No+Image';

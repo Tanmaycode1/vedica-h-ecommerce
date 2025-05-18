@@ -73,17 +73,20 @@ const CollectionBanner: NextPage = () => {
           // Format the image URL correctly
           let imageUrl = collectionObj.image_url;
           
-          // Ensure the image_url has the correct prefix
-          if (imageUrl) {
-            // If it doesn't start with http or /uploads, add the /uploads prefix
-            if (!imageUrl.startsWith('http') && !imageUrl.startsWith('/uploads')) {
+          // Format the image URL if it's a relative path
+          if (imageUrl && !imageUrl.startsWith('http')) {
+            // If it doesn't start with /uploads, add it
+            if (!imageUrl.startsWith('/uploads')) {
               imageUrl = `/uploads${imageUrl}`;
             }
             
-            // Add API base URL if it's a relative path but not a blob URL
-            if (!imageUrl.startsWith('http') && !imageUrl.startsWith('blob:')) {
-              imageUrl = `http://localhost:3002${imageUrl}`;
+            // Get the API base URL (without the /api part)
+            let baseUrl = process.env.NEXT_PUBLIC_API_URL || process.env.API_URL || "http://localhost:3002";
+            if (baseUrl.endsWith('/api')) {
+              baseUrl = baseUrl.slice(0, -4); // Remove the /api suffix for image URLs
             }
+            
+            imageUrl = `${baseUrl}${imageUrl}`;
           }
           
           setCollection({

@@ -6,6 +6,20 @@
 // Allow configurable base URL with a fallback
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3002';
 
+// Ensure the API base URL has /api at the end if not already included
+const getApiUrl = (url) => {
+  if (!url) return 'http://localhost:3002/api';
+  
+  // If URL already ends with /api, return it
+  if (url.endsWith('/api')) return url;
+  
+  // Otherwise, add /api at the end
+  return url.endsWith('/') ? `${url}api` : `${url}/api`;
+};
+
+// API URL with /api at the end
+const API_URL = getApiUrl(API_BASE_URL);
+
 // Helper to check if a token is still valid
 const checkAuth = async () => {
   try {
@@ -29,7 +43,7 @@ const checkAuth = async () => {
 // Generic fetch wrapper with error handling
 const fetchData = async (endpoint, options = {}) => {
   try {
-    const response = await fetch(`${API_BASE_URL}${endpoint}`, options);
+    const response = await fetch(`${API_URL}${endpoint}`, options);
     if (!response.ok) {
       throw new Error(`API call failed: ${response.status} ${response.statusText}`);
     }
@@ -44,7 +58,7 @@ const fetchData = async (endpoint, options = {}) => {
 const fetchWithHeaders = async (endpoint, options = {}) => {
   try {
     console.log(`Making API request to: ${endpoint}`);
-    const response = await fetch(`${API_BASE_URL}${endpoint}`, options);
+    const response = await fetch(`${API_URL}${endpoint}`, options);
     
     // If the response is not JSON, handle it accordingly
     const contentType = response.headers.get("content-type");
@@ -163,7 +177,7 @@ const apiService = {
   
   // Auth endpoints
   getUserProfile: async (firebaseToken) => {
-    return fetchWithHeaders('/api/auth/firebase/profile', {
+    return fetchWithHeaders('/auth/firebase/profile', {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${firebaseToken}`
@@ -172,7 +186,7 @@ const apiService = {
   },
   
   updateUserProfile: async (userData, firebaseToken) => {
-    return fetchWithHeaders('/api/auth/firebase/profile', {
+    return fetchWithHeaders('/auth/firebase/profile', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -199,7 +213,7 @@ const apiService = {
 
     console.log('Getting orders with token length:', firebaseToken.length);
     
-    return fetchWithHeaders('/api/orders', {
+    return fetchWithHeaders('/orders', {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${firebaseToken}`
@@ -221,7 +235,7 @@ const apiService = {
       firebaseToken = token;
     }
     
-    return fetchWithHeaders(`/api/orders/${orderId}`, {
+    return fetchWithHeaders(`/orders/${orderId}`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${firebaseToken}`
@@ -251,7 +265,7 @@ const apiService = {
       }) : 'No payment details');
     
     try {
-      const response = await fetchWithHeaders('/api/orders', {
+      const response = await fetchWithHeaders('/orders', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -281,8 +295,8 @@ const apiService = {
   },
   
   // Mega Menu
-  getMegaMenu: () => fetchData('/api/megamenu'),
-  getMegaMenuTree: () => fetchData('/api/megamenu/tree'),
+  getMegaMenu: () => fetchData('/megamenu'),
+  getMegaMenuTree: () => fetchData('/megamenu/tree'),
   
   // Products
   getProducts: (params = {}) => {
@@ -291,11 +305,11 @@ const apiService = {
     if (Object.keys(params).length > 0) {
       queryString = '?' + new URLSearchParams(params).toString();
     }
-    return fetchData(`/api/filter/products${queryString}`);
+    return fetchData(`/filter/products${queryString}`);
   },
   
   getProductById: async (id) => {
-    const response = await fetchData(`/api/products/${id}`);
+    const response = await fetchData(`/products/${id}`);
     
     // If the response has a product property, use that, otherwise use the response itself
     const productData = response.product || response;
@@ -304,14 +318,14 @@ const apiService = {
     return transformProductData(productData);
   },
   
-  getProductCategories: () => fetchData('/api/filter/categories'),
+  getProductCategories: () => fetchData('/filter/categories'),
   
   getProductBrands: (params = {}) => {
     let queryString = '';
     if (Object.keys(params).length > 0) {
       queryString = '?' + new URLSearchParams(params).toString();
     }
-    return fetchData(`/api/filter/brands${queryString}`);
+    return fetchData(`/filter/brands${queryString}`);
   },
   
   getProductColors: (params = {}) => {
@@ -319,12 +333,12 @@ const apiService = {
     if (Object.keys(params).length > 0) {
       queryString = '?' + new URLSearchParams(params).toString();
     }
-    return fetchData(`/api/filter/colors${queryString}`);
+    return fetchData(`/filter/colors${queryString}`);
   },
   
   // Collections
   getCollections: async () => {
-    const collections = await fetchData('/api/collections');
+    const collections = await fetchData('/collections');
     return Array.isArray(collections) 
       ? collections.map(transformCollectionData) 
       : [];
@@ -334,50 +348,34 @@ const apiService = {
     if (Object.keys(params).length > 0) {
       queryString = '?' + new URLSearchParams(params).toString();
     }
-    return fetchData(`/api/collections/tree${queryString}`);
+    return fetchData(`/collections/tree${queryString}`);
   },
   getCollectionBySlug: async (slug) => {
-    const response = await fetchData(`/api/collections/by-slug/${slug}`);
+    const response = await fetchData(`/collections/by-slug/${slug}`);
     return transformCollectionData(response);
   },
-  getFeaturedBrands: () => fetchData('/api/collections/featured-brands'),
+  getFeaturedBrands: () => fetchData('/collections/featured-brands'),
   
   // Currency
-  getCurrencies: () => fetchData('/api/currencies'),
+  getCurrencies: () => fetchData('/currencies'),
   
   // Payment endpoints
-  logPaymentAttempt: async (paymentData, firebaseToken) => {
+  logPayment: async (paymentData, firebaseToken) => {
     if (!firebaseToken) {
       const token = await checkAuth();
       if (!token) {
-        return { 
-          success: false, 
-          status: 401, 
-          message: 'Authentication required' 
-        };
+        return { success: false, status: 401, message: 'Authentication required' };
       }
       firebaseToken = token;
     }
     
-    // Ensure payment data has proper Razorpay fields
-    const formattedPaymentData = {
-      ...paymentData,
-      razorpay_order_id: paymentData.razorpay_order_id || paymentData.order_id,
-      razorpay_payment_id: paymentData.razorpay_payment_id || paymentData.payment_id,
-      razorpay_signature: paymentData.razorpay_signature || paymentData.signature,
-      payment_method: paymentData.payment_method || 'razorpay',
-      timestamp: paymentData.timestamp || new Date().toISOString()
-    };
-    
-    console.log('Sending payment log data:', JSON.stringify(formattedPaymentData, null, 2));
-    
-    return fetchWithHeaders('/api/payments/log', {
+    return fetchWithHeaders('/payments/log', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${firebaseToken}`
       },
-      body: JSON.stringify(formattedPaymentData)
+      body: JSON.stringify(paymentData)
     });
   },
   
@@ -385,16 +383,12 @@ const apiService = {
     if (!firebaseToken) {
       const token = await checkAuth();
       if (!token) {
-        return { 
-          success: false, 
-          status: 401, 
-          message: 'Authentication required' 
-        };
+        return { success: false, status: 401, message: 'Authentication required' };
       }
       firebaseToken = token;
     }
     
-    return fetchWithHeaders('/api/payments/verify', {
+    return fetchWithHeaders('/payments/verify', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
