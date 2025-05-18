@@ -1,0 +1,773 @@
+{
+  "info": {
+    "_postman_id": "b08e4e98-5f57-4a2c-b03c-b9a33f4712a4",
+    "name": "BigDeal Ecommerce Backend API",
+    "description": "A comprehensive collection for testing the BigDeal Ecommerce backend API, including both GraphQL and REST endpoints.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "GraphQL Endpoints",
+      "description": "GraphQL API endpoints for the e-commerce platform.",
+      "item": [
+        {
+          "name": "Products",
+          "item": [
+            {
+              "name": "Get All Products",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"query { products(limit: 10, indexFrom: 0) { items { id title description type brand category price new sale discount stock images { alt src } variants { id sku size color image_id } collection { collectionName } } total totalPages hasMore currentPage } }\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:3001/graphql",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3001",
+                  "path": ["graphql"]
+                },
+                "description": "Fetch all products with pagination (first page, 10 items per page)"
+              }
+            },
+            {
+              "name": "Get All Products (Raw)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"query { products(all: true) { items { id title type } total totalPages } }\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:3001/graphql",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3001",
+                  "path": ["graphql"]
+                },
+                "description": "Fetch all products without pagination to get a count of total items"
+              }
+            },
+            {
+              "name": "Get Products by Category (FASHION)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"query { products(type: \\\"FASHION\\\", limit: 12, indexFrom: 0) { items { id title type } total totalPages hasMore currentPage } }\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:3001/graphql",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3001",
+                  "path": ["graphql"]
+                },
+                "description": "Fetch products filtered by FASHION category"
+              }
+            },
+            {
+              "name": "Get Products by Category (ELECTRONICS)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"query { products(type: \\\"ELECTRONICS\\\", limit: 12, indexFrom: 0) { items { id title type } total totalPages hasMore currentPage } }\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:3001/graphql",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3001",
+                  "path": ["graphql"]
+                },
+                "description": "Fetch products filtered by ELECTRONICS category"
+              }
+            },
+            {
+              "name": "Get Products with Brand Filter",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"query { products(brand: [\\\"nike\\\"], limit: 12, indexFrom: 0) { items { id title type brand } total totalPages hasMore currentPage } }\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:3001/graphql",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3001",
+                  "path": ["graphql"]
+                },
+                "description": "Fetch products filtered by brand (nike)"
+              }
+            },
+            {
+              "name": "Get Products with Color Filter",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"query { products(color: [\\\"red\\\"], limit: 12, indexFrom: 0) { items { id title variants { color } } total totalPages hasMore currentPage } }\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:3001/graphql",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3001",
+                  "path": ["graphql"]
+                },
+                "description": "Fetch products filtered by color (red)"
+              }
+            },
+            {
+              "name": "Get Products with Price Range",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"query { products(priceMin: 100, priceMax: 500, limit: 12, indexFrom: 0) { items { id title price } total totalPages hasMore currentPage } }\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:3001/graphql",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3001",
+                  "path": ["graphql"]
+                },
+                "description": "Fetch products filtered by price range (100-500)"
+              }
+            },
+            {
+              "name": "Get Products with Multiple Filters",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"query { products(type: \\\"BEAUTY\\\", brand: [\\\"puma\\\"], color: [\\\"green\\\"], limit: 12, indexFrom: 0) { items { id title type brand } total totalPages hasMore currentPage } }\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:3001/graphql",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3001",
+                  "path": ["graphql"]
+                },
+                "description": "Fetch products with multiple filters (category, brand, color)"
+              }
+            },
+            {
+              "name": "Get Product by ID",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"query { product(id: 1) { id title description type brand category price new sale discount stock images { alt src } variants { id sku size color image_id } collection { collectionName } } }\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:3001/graphql",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3001",
+                  "path": ["graphql"]
+                },
+                "description": "Fetch a single product by its ID"
+              }
+            },
+            {
+              "name": "Get Products with Pagination (Page 2)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"query { products(limit: 10, indexFrom: 10) { items { id title } total totalPages hasMore currentPage } }\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:3001/graphql",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3001",
+                  "path": ["graphql"]
+                },
+                "description": "Fetch products with pagination (second page, 10 items per page)"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Collections",
+          "item": [
+            {
+              "name": "Get Collection (Featured)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"query { collection(collec: \\\"featured\\\") { id name slug products { id title price } } }\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:3001/graphql",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3001",
+                  "path": ["graphql"]
+                },
+                "description": "Fetch the 'featured' collection and its products"
+              }
+            },
+            {
+              "name": "Get Collection (New Arrivals)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"query { collection(collec: \\\"new-arrivals\\\") { id name slug products { id title price } } }\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:3001/graphql",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3001",
+                  "path": ["graphql"]
+                },
+                "description": "Fetch the 'new-arrivals' collection and its products"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Filters",
+          "item": [
+            {
+              "name": "Get All Brands",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"query { getBrands { brand } }\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:3001/graphql",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3001",
+                  "path": ["graphql"]
+                },
+                "description": "Fetch all product brands"
+              }
+            },
+            {
+              "name": "Get All Colors",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"query { getColors { colors } }\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:3001/graphql",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3001",
+                  "path": ["graphql"]
+                },
+                "description": "Fetch all product colors"
+              }
+            },
+            {
+              "name": "Get Brands by Category",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"query { getBrands(type: \\\"FASHION\\\") { brand } }\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:3001/graphql",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3001",
+                  "path": ["graphql"]
+                },
+                "description": "Fetch brands filtered by category"
+              }
+            },
+            {
+              "name": "Get Colors by Category",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"query { getColors(type: \\\"FASHION\\\") { colors } }\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:3001/graphql",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3001",
+                  "path": ["graphql"]
+                },
+                "description": "Fetch colors filtered by category"
+              }
+            },
+            {
+              "name": "Get All Categories",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"query { getCategories { category } }\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:3001/graphql",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3001",
+                  "path": ["graphql"]
+                },
+                "description": "Fetch all product categories"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Currency",
+          "item": [
+            {
+              "name": "Get All Currencies",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"query { currency { currency symbol value } }\"\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:3001/graphql",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3001",
+                  "path": ["graphql"]
+                },
+                "description": "Fetch all currencies"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "REST API Endpoints",
+      "description": "REST API endpoints for direct access to the backend services.",
+      "item": [
+        {
+          "name": "Products",
+          "item": [
+            {
+              "name": "Get All Products",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3001/api/products?limit=10&page=1",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3001",
+                  "path": ["api", "products"],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ]
+                },
+                "description": "Fetch all products with pagination (first page, 10 items per page)"
+              }
+            },
+            {
+              "name": "Get Product by ID",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3001/api/products/1",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3001",
+                  "path": ["api", "products", "1"]
+                },
+                "description": "Fetch a single product by its ID"
+              }
+            },
+            {
+              "name": "Get Products by Category",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3001/api/products?category=FASHION&limit=12&page=1",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3001",
+                  "path": ["api", "products"],
+                  "query": [
+                    {
+                      "key": "category",
+                      "value": "FASHION"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "12"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ]
+                },
+                "description": "Fetch products filtered by category"
+              }
+            },
+            {
+              "name": "Get Products by Brand",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3001/api/products?brand=nike&limit=12&page=1",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3001",
+                  "path": ["api", "products"],
+                  "query": [
+                    {
+                      "key": "brand",
+                      "value": "nike"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "12"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ]
+                },
+                "description": "Fetch products filtered by brand"
+              }
+            },
+            {
+              "name": "Get Products with Price Range",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3001/api/products?min_price=100&max_price=500&limit=12&page=1",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3001",
+                  "path": ["api", "products"],
+                  "query": [
+                    {
+                      "key": "min_price",
+                      "value": "100"
+                    },
+                    {
+                      "key": "max_price",
+                      "value": "500"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "12"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    }
+                  ]
+                },
+                "description": "Fetch products filtered by price range"
+              }
+            },
+            {
+              "name": "Get Product Categories",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3001/api/products/categories",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3001",
+                  "path": ["api", "products", "categories"]
+                },
+                "description": "Fetch all product categories"
+              }
+            },
+            {
+              "name": "Get Product Brands",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3001/api/products/brands",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3001",
+                  "path": ["api", "products", "brands"]
+                },
+                "description": "Fetch all product brands"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Collections",
+          "item": [
+            {
+              "name": "Get All Collections",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3001/api/collections",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3001",
+                  "path": ["api", "collections"]
+                },
+                "description": "Fetch all collections"
+              }
+            },
+            {
+              "name": "Get Collection by Slug",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3001/api/collections/featured",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3001",
+                  "path": ["api", "collections", "featured"]
+                },
+                "description": "Fetch a single collection by its slug"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Currencies",
+          "item": [
+            {
+              "name": "Get All Currencies",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3001/api/currencies",
+                  "protocol": "http",
+                  "host": ["localhost"],
+                  "port": "3001",
+                  "path": ["api", "currencies"]
+                },
+                "description": "Fetch all currencies"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Debug Tools",
+      "description": "Specialized requests for debugging and troubleshooting.",
+      "item": [
+        {
+          "name": "Count All Products in Database",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"query { products(all: true) { total } }\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3001/graphql",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["graphql"]
+            },
+            "description": "Get the total count of products in the database"
+          }
+        },
+        {
+          "name": "Get Product IDs for Pagination Testing",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"query { products(all: true) { items { id } } }\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3001/graphql",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["graphql"]
+            },
+            "description": "Get all product IDs to verify the total number of products"
+          }
+        },
+        {
+          "name": "Test All Categories",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"query { getCategories { category } }\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3001/graphql",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "3001",
+              "path": ["graphql"]
+            },
+            "description": "Get all categories to test with different filter combinations"
+          }
+        }
+      ]
+    }
+  ]
+} 

@@ -1,0 +1,17 @@
+{
+  "name": "bigdeal-graphql-api",
+  "version": "1.0.0",
+  "description": "GraphQL API for BigDeal E-commerce",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node index.ts",
+    "dev": "nodemon --exec ts-node index.ts"
+  },
+  "dependencies": {
+    "apollo-server": "^3.12.0",
+    "class-transformer": "^0.5.1",
+    "graphql": "^16.6.0",
+    "reflect-metadata": "^0.1.13",
+    "type-graphql": "^2.0.0-beta.1"
+  }
+} 

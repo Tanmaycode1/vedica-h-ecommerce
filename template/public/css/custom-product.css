@@ -1,0 +1,151 @@
+/* Mobile Product Box Styles */
+@media (max-width: 767px) {
+  .product .product-box {
+    padding-right: 0;
+    margin-bottom: 15px;
+    /* Adjust border and shadow for mobile */
+    border: 1px solid rgba(154, 51, 36, 0.2);
+  }
+  
+  .product .product-box .product-imgbox {
+    height: auto;
+  }
+  
+  .product .product-box .product-imgbox img {
+    max-height: 200px;
+    object-fit: contain;
+  }
+  
+  /* Make mobile-friendly product icon sizes */
+  .product .product-box .product-imgbox .product-icon {
+    opacity: 1;
+    bottom: 5px;
+    right: 5px;
+  }
+  
+  .product .product-box .product-imgbox .product-icon button {
+    padding: 10px;
+  }
+  
+  .product .product-box .product-imgbox .product-icon a {
+    margin-top: 3px;
+  }
+  
+  .product .product-box .product-imgbox .product-icon a i {
+    padding: 10px;
+  }
+  
+  .product .product-box .product-imgbox .product-icon.icon-inline {
+    opacity: 1;
+    bottom: 5px;
+  }
+  
+  .product .product-box .product-imgbox .product-icon.icon-inline button,
+  .product .product-box .product-imgbox .product-icon.icon-inline a {
+    margin: 0 5px;
+  }
+  
+  .product .product-box .product-imgbox .product-icon.icon-inline button {
+    padding: 10px;
+  }
+  
+  .product .product-box .product-imgbox .product-icon.icon-inline a i {
+    padding: 10px;
+  }
+  
+  /* Adjust size of sale and new labels */
+  .product .product-box .product-imgbox .new-label1 {
+    width: 40px;
+    height: 40px;
+    top: 10px;
+    left: 10px;
+    font-size: 10px;
+  }
+  
+  .product .product-box .product-detail.detail-center1 {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  
+  .product .product-box .product-detail.detail-center1 h6 {
+    font-size: 14px;
+    margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+  
+  .product .product-box .product-detail.detail-center1 .detail-price {
+    font-size: 14px;
+  }
+  
+  .product .product-box .product-detail.detail-center1 .detail-price span {
+    margin-left: 10px;
+    font-size: 12px;
+  }
+  
+  /* Don't show transform on mobile hover which can be disruptive */
+  .product .product-box:hover {
+    transform: none;
+  }
+  
+  /* Adjust no-slider product boxes for mobile grid */
+  .no-slider .product-box {
+    width: 100% !important;
+    flex: 0 0 calc(50% - 10px) !important;
+    max-width: calc(50% - 10px) !important;
+    margin: 0 5px 15px !important;
+  }
+  
+  .no-slider .product-box:nth-last-child(-n + 4) {
+    margin: 0 5px 15px !important;
+  }
+  
+  .no-slider.five-product .product-box {
+    width: 100% !important;
+    flex: 0 0 calc(50% - 10px) !important;
+    max-width: calc(50% - 10px) !important;
+    margin: 0 5px 15px !important;
+  }
+  
+  .no-slider.five-product .product-box:nth-last-child(-n + 5) {
+    margin: 0 5px 15px !important;
+  }
+
+  /* Additional mobile-specific improvements */
+  .product-box {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .product-imgbox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    min-height: 180px;
+  }
+
+  /* Make touch targets bigger for mobile */
+  .product .product-box .product-imgbox .product-icon button,
+  .product .product-box .product-imgbox .product-icon a i {
+    min-width: 36px;
+    min-height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Improve mobile readability */
+  .product .product-box .product-detail.detail-center1 h6 {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  /* Better color contrast for price */
+  .product .product-box .product-detail.detail-center1 .detail-price {
+    font-weight: 700;
+    color: #9A3324;
+  }
+} 

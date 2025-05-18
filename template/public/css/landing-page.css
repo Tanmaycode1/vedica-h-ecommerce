@@ -1,0 +1,161 @@
+/* Landing Page Product Sections Styles */
+
+/* General product box styling for all landing page sections */
+.ratio_asos .product-box,
+.section-py-space .product-box,
+.section-big-py-space .product-box {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+  border: 1px solid rgba(154, 51, 36, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  margin-bottom: 15px;
+  background-color: white;
+}
+
+/* Product image container */
+.ratio_asos .product-box .product-imgbox,
+.section-py-space .product-box .product-imgbox,
+.section-big-py-space .product-box .product-imgbox {
+  width: 100% !important;
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px 8px 0 0;
+  border-bottom: 1px solid rgba(154, 51, 36, 0.1);
+}
+
+.ratio_asos .product-box .product-imgbox img,
+.section-py-space .product-box .product-imgbox img,
+.section-big-py-space .product-box .product-imgbox img {
+  width: 100%;
+  height: auto;
+  transition: all 0.5s ease;
+  object-fit: cover;
+  aspect-ratio: 1;
+}
+
+/* Product detail container */
+.ratio_asos .product-box .product-detail,
+.section-py-space .product-box .product-detail,
+.section-big-py-space .product-box .product-detail {
+  padding: 12px !important;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: space-between;
+}
+
+/* Product title */
+.ratio_asos .product-box .product-detail h3,
+.section-py-space .product-box .product-detail h3,
+.section-big-py-space .product-box .product-detail h3 {
+  font-size: 16px !important;
+  font-weight: 500;
+  margin-bottom: 8px !important;
+  color: #333;
+  text-align: center !important;
+  height: 40px !important;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+/* Product labels */
+.ratio_asos .product-box .product-imgbox > div[style*="position: absolute; top: 15px; left: 15px"],
+.section-py-space .product-box .product-imgbox > div[style*="position: absolute; top: 15px; left: 15px"],
+.section-big-py-space .product-box .product-imgbox > div[style*="position: absolute; top: 15px; left: 15px"] {
+  z-index: 2;
+}
+
+/* Fix for featured products slider */
+.product-slide-5 .slick-track {
+  display: flex !important;
+  gap: 0;
+}
+
+.product-slide-5 .slick-slide {
+  height: inherit;
+  padding: 0 5px;
+}
+
+.product-slide-5 .slick-slide > div {
+  height: 100%;
+}
+
+.product-slide-5 .slick-slide > div > div {
+  height: 100%;
+}
+
+/* Fix for tab products slider */
+.product-slide-6 .slick-track {
+  display: flex !important;
+  gap: 0;
+}
+
+.product-slide-6 .slick-slide {
+  height: inherit;
+  padding: 0 5px;
+}
+
+.product-slide-6 .slick-slide > div {
+  height: 100%;
+}
+
+.product-slide-6 .slick-slide > div > div {
+  height: 100%;
+}
+
+/* Special styles for mobile view */
+@media (max-width: 767px) {
+  /* Make featured, new and on-sale products display in a grid */
+  .ratio_asos .slick-track,
+  .product-slide-5 .slick-track,
+  .product-slide-6 .slick-track {
+    display: flex !important;
+  }
+  
+  .ratio_asos .slick-slide,
+  .product-slide-5 .slick-slide,
+  .product-slide-6 .slick-slide {
+    height: auto !important;
+  }
+  
+  .ratio_asos .product-box,
+  .section-py-space .product-box,
+  .section-big-py-space .product-box {
+    flex-direction: column !important;
+    margin: 0 5px 15px;
+  }
+  
+  .ratio_asos .product-box .product-imgbox,
+  .section-py-space .product-box .product-imgbox,
+  .section-big-py-space .product-box .product-imgbox {
+    width: 100% !important;
+    min-width: 100% !important;
+    margin-right: 0 !important;
+  }
+  
+  /* Adjust title section spacing on mobile */
+  .title-basic {
+    margin-bottom: 15px !important;
+  }
+  
+  .title-basic h2.title {
+    font-size: 22px !important;
+    margin-bottom: 5px !important;
+  }
+  
+  /* Make touch targets bigger for mobile */
+  .product .product-box .product-imgbox .product-icon button,
+  .product .product-box .product-imgbox .product-icon a i {
+    min-width: 32px;
+    min-height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+} 

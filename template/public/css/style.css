@@ -1,0 +1,9 @@
+/* Add rupee symbol font support */
+.price-text, .collection-current-price, h3, h4, h6, span {
+  font-family: 'Poppins', Arial, 'Noto Sans', 'Helvetica Neue', sans-serif !important;
+}
+
+/* Define a specific class for the rupee symbol for better control */
+.rupee-symbol {
+  font-family: Arial, 'Noto Sans', 'Helvetica Neue', sans-serif !important;
+} 

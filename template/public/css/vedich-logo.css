@@ -1,0 +1,142 @@
+/* VedicH Logo Styling */
+.vedich-logo {
+  font-family: 'Poppins', sans-serif;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 5px 15px 10px;
+  background: radial-gradient(circle at center, rgba(255, 153, 51, 0.05) 0%, rgba(255, 153, 51, 0) 70%);
+}
+
+/* Circular chakra effect around logo */
+.vedich-logo::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 1px dashed rgba(154, 51, 36, 0.2);
+  box-sizing: border-box;
+  animation: rotate 30s linear infinite;
+  z-index: -1;
+}
+
+@keyframes rotate {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.vedich-logo-text {
+  font-size: 28px;
+  font-weight: 700;
+  color: #9A3324;
+  position: relative;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  text-shadow: 1px 1px 0px rgba(255, 153, 51, 0.2);
+}
+
+/* Om symbol before the text */
+.vedich-logo-text::before {
+  content: "ॐ";
+  font-size: 24px;
+  margin-right: 8px;
+  color: #FF9933;
+  font-weight: 400;
+}
+
+/* Decorative horizontal line below text */
+.vedich-logo-text::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, #FF9933 0%, #9A3324 100%);
+}
+
+/* Decorative lotus elements in top-left and bottom-right corners */
+.vedich-logo .top-lotus,
+.vedich-logo .bottom-lotus {
+  position: absolute;
+  color: #FF9933;
+  font-size: 14px;
+  opacity: 0.8;
+  z-index: 1;
+}
+
+.vedich-logo .top-lotus {
+  top: 0;
+  left: 0;
+}
+
+.vedich-logo .bottom-lotus {
+  bottom: 0;
+  right: 0;
+}
+
+/* Swastik accent (auspicious symbol in Hinduism) */
+.vedich-logo-text span {
+  position: relative;
+  margin-left: 5px;
+}
+
+.vedich-logo-text span:after {
+  content: "卐";
+  position: absolute;
+  font-size: 12px;
+  color: #FF9933;
+  top: -10px;
+  right: -15px;
+  opacity: 0.7;
+  transform: rotate(45deg);
+}
+
+/* Footer version */
+.footer-logo .vedich-logo {
+  justify-content: center;
+  padding: 10px 20px 15px;
+  background: radial-gradient(circle at center, rgba(255, 153, 51, 0.1) 0%, rgba(255, 153, 51, 0) 70%);
+}
+
+.footer-logo .vedich-logo-text {
+  font-size: 32px;
+  justify-content: center;
+}
+
+.footer-logo .vedich-logo .top-lotus,
+.footer-logo .vedich-logo .bottom-lotus {
+  font-size: 16px;
+}
+
+/* Mobile responsive styles */
+@media (max-width: 767px) {
+  .vedich-logo-text {
+    font-size: 24px;
+  }
+  
+  .vedich-logo-text::before {
+    font-size: 20px;
+  }
+  
+  .footer-logo .vedich-logo-text {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 480px) {
+  .vedich-logo-text {
+    font-size: 20px;
+  }
+  
+  .vedich-logo-text::before {
+    font-size: 18px;
+    margin-right: 5px;
+  }
+} 

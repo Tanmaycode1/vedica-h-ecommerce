@@ -1,0 +1,46 @@
+@import "theme/variables";
+@import "theme/style";
+@import "theme/menu";
+@import "theme/responsive";
+@import "theme/theme-dark";
+@import "theme/theme-rtl";
+
+:root {
+  --theme-color1: #FF7722;
+  --theme-color2: #8B4513;
+}
+
+html[class="color-1"] {
+  --theme-color1: #FF7722;
+  --theme-color2: #8B4513;
+}
+
+html[class="color-2"] {
+  --theme-color1: #FFA500;
+  --theme-color2: #9C2603;
+}
+
+html[class="color-3"] {
+  --theme-color1: #FF4500;
+  --theme-color2: #8B0000;
+}
+
+html[class="color-4"] {
+  --theme-color1: #FFD700;
+  --theme-color2: #228B22;
+}
+
+html[class="color-5"] {
+  --theme-color1: #C05805;
+  --theme-color2: #7C0A02;
+}
+
+html[class="color-6"] {
+  --theme-color1: #CD853F;
+  --theme-color2: #B22222;
+}
+
+html[class="color-7"] {
+  --theme-color1: #FF9933;
+  --theme-color2: #9A3324;
+}

@@ -1,0 +1,123 @@
+/* Mobile Product Box Styles */
+@media (max-width: 767px) {
+  .product {
+    .product-box {
+      padding-right: 0;
+      margin-bottom: 15px;
+      /* Adjust border and shadow for mobile */
+      border: 1px solid rgba(154, 51, 36, 0.2);
+      
+      .product-imgbox {
+        height: auto;
+        
+        img {
+          max-height: 200px;
+          object-fit: contain;
+        }
+        
+        /* Make mobile-friendly product icon sizes */
+        .product-icon {
+          &.icon-inline {
+            opacity: 1;
+            bottom: 5px;
+            
+            button, a {
+              margin: 0 5px;
+            }
+            
+            button {
+              padding: 10px;
+            }
+            
+            a i {
+              padding: 10px;
+            }
+          }
+          
+          /* Show icons by default on touch devices */
+          opacity: 1;
+          bottom: 5px;
+          right: 5px;
+          
+          button {
+            padding: 10px;
+          }
+          
+          a {
+            margin-top: 3px;
+            
+            i {
+              padding: 10px;
+            }
+          }
+        }
+        
+        /* Adjust size of sale and new labels */
+        .new-label1 {
+          width: 40px;
+          height: 40px;
+          top: 10px;
+          left: 10px;
+          font-size: 10px;
+        }
+      }
+      
+      .product-detail {
+        &.detail-center1 {
+          padding-top: 10px;
+          padding-bottom: 10px;
+          
+          h6 {
+            font-size: 14px;
+            margin-bottom: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+          }
+          
+          .detail-price {
+            font-size: 14px;
+            
+            span {
+              margin-left: 10px;
+              font-size: 12px;
+            }
+          }
+        }
+      }
+      
+      /* Don't show transform on mobile hover which can be disruptive */
+      &:hover {
+        transform: none;
+      }
+    }
+  }
+  
+  /* Adjust no-slider product boxes for mobile grid */
+  .no-slider {
+    .product-box {
+      width: 100%;
+      flex: 0 0 calc(50% - 10px) !important;
+      max-width: calc(50% - 10px) !important;
+      margin: 0 5px 15px !important;
+      
+      &:nth-last-child(-n + 4) {
+        margin: 0 5px 15px !important;
+      }
+    }
+    
+    &.five-product {
+      .product-box {
+        width: 100%;
+        flex: 0 0 calc(50% - 10px) !important;
+        max-width: calc(50% - 10px) !important;
+        margin: 0 5px 15px !important;
+        
+        &:nth-last-child(-n + 5) {
+          margin: 0 5px 15px !important;
+        }
+      }
+    }
+  }
+} 
