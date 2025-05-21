@@ -443,7 +443,8 @@ export default function ProductForm({ productId, initialData }: ProductFormProps
           };
           
           const response = await productsApi.create(createData);
-          const newProductId = response.data?.id;
+          // Fix the issue by looking for product.id in the response data structure
+          const newProductId = response.product?.id;
           
           if (!newProductId) {
             throw new Error('No product ID returned from create API');
