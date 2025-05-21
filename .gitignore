@@ -1,0 +1,71 @@
+# Dependencies
+node_modules
+*/node_modules
+backend/node_modules
+template/node_modules
+admin-panel/node_modules
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+.pnp
+.pnp.js
+
+# Environment variables
+.env
+*/.env
+backend/.env
+template/.env
+admin-panel/.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*/.env.local
+*/.env.development.local
+*/.env.test.local
+*/.env.production.local
+
+# Firebase credentials
+*firebase-adminsdk*.json
+*/firebase-adminsdk*.json
+backend/*firebase-adminsdk*.json
+bigdeal-258f6-firebase-adminsdk-fbsvc-df90dfef44.json
+backend/bigdeal-258f6-firebase-adminsdk-fbsvc-df90dfef44.json
+
+# Build outputs
+dist
+*/dist
+backend/dist
+template/dist
+admin-panel/dist
+.next
+*/.next
+template/.next
+admin-panel/.next
+out
+*/out
+build
+*/build
+
+# Cache
+.npm
+.eslintcache
+
+# Logs
+logs
+*.log
+
+# OS specific files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE specific files
+.idea
+.vscode
+*.swp
+*.swo 

@@ -84,26 +84,20 @@ async function seedOrdersAndPayments() {
         payment_method: paymentMethod,
         payment_status: paymentStatus,
         total: 0, // Will be calculated based on items
-        shipping_address: JSON.stringify({
-          name: `${user.name}`,
-          email: user.email,
-          address_line1: '123 Test Street',
+        shipping_address: {
+          street: '123 Test Street',
           city: 'Test City',
           state: 'Test State',
-          postal_code: '12345',
-          country: 'Test Country',
-          phone: '1234567890'
-        }),
-        billing_address: JSON.stringify({
-          name: `${user.name}`,
-          email: user.email,
-          address_line1: '123 Test Street',
+          zip_code: '12345',
+          country: 'Test Country'
+        },
+        billing_address: {
+          street: '123 Test Street',
           city: 'Test City',
           state: 'Test State',
-          postal_code: '12345',
-          country: 'Test Country',
-          phone: '1234567890'
-        }),
+          zip_code: '12345',
+          country: 'Test Country'
+        },
         tracking_number: status === 'shipped' || status === 'delivered' ? `TRK${i}${Math.floor(Math.random() * 100000)}` : undefined,
         created_at: date,
         updated_at: date
